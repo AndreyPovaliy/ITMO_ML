@@ -1,0 +1,31 @@
+@startuml
+autonumber
+
+participant "Врач-травматолог" as Doctor
+participant "Веб-интерфейс" as UI
+participant "Backend API" as Backend
+participant "База данных PostgreSQL" as DB
+participant "ML Модель (Predict)" as ML_Model
+
+Doctor -> UI : Открывает главный модуль
+UI -> Backend : Получает ролевые права
+Backend -> DB : Валидация роли
+DB --> Backend : Ответ с ролью
+Backend --> UI : Роль подтверждена
+
+Doctor -> UI : Вводит данные пациента
+UI -> Backend : POST /api/preop-assessment
+Backend -> DB : SELECT * FROM patients WHERE id = ?
+DB --> Backend : Данные пациента
+
+Backend -> ML_Model : GET /predict
+activate ML_Model
+ML_Model --> Backend : Ответ с вероятностью 78% + рекомендации
+deactivate ML_Model
+
+Backend --> UI : JSON с результатом прогноза
+UI --> Doctor : Отображение результата
+
+note right of Backend : Предоперационный прогноз: "Операция целесообразна"
+@enduml
+```

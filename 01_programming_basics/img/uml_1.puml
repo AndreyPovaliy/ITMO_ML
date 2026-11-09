@@ -1,0 +1,49 @@
+@startuml
+' Стилизация для читаемости
+skinparam packageStyle rectangle
+skinparam defaultTitleFontSize 14
+hide empty members
+
+title Диаграмма Use Case: Система прогноза СППВР
+
+frame  "Блок 1: Подготовка данных и обучение модели" {
+ actor "Врач-информатик" as InformaticsDoctor
+
+
+    package "Модуль подготовки ML" {
+        usecase "Загрузка исторических данных (CSV/Excel)" as UC_Load
+        usecase "Очистка данных и валидация полей" as UC_Clean
+        usecase "Мониторинг метрик и Кросс-валидация" as UC_Monitor
+        usecase "Вывод модели\nв интерфейс" as UC_Interface
+
+        ' Взаимодействие внутри процесса обучения (логическое)
+        UC_Load ..> UC_Clean : включает
+        UC_Clean ..> UC_Monitor : передает данные
+        UC_Monitor ..> UC_Interface
+    }
+
+    InformaticsDoctor --> UC_Load
+    InformaticsDoctor --> UC_Clean
+    InformaticsDoctor --> UC_Monitor
+    
+
+}
+
+frame "Блок 2: Предоперационный этап" {
+         actor "Врач-травматолог-ортопед" as Traumatologist
+
+     package "Интерфейс Прогноза" {
+         usecase "Сформировать прогноз результата (3 мес)" as UC_Predict
+         usecase "Сгенерировать чек-лист подготовки (ERAS)" as UC_Recommendation
+
+         ' Логика: Прогноз влияет на рекомендации
+         UC_Interface ..> UC_Predict
+         UC_Predict ..> UC_Recommendation : расширяется, если прогноз низкий
+     }
+
+     Traumatologist --> UC_Predict
+     Traumatologist --> UC_Recommendation
+
+}
+
+@enduml

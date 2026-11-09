@@ -1,0 +1,90 @@
+@startuml
+title Система поддержки принятия врачебных решений (СППВР) при ТЭП КС (фрагмент)
+
+
+
+package "Модель пациента и Данные" {
+    class Patient {
+        +Integer id
+        +Date dateOfBirth
+        +Float weight
+        +String gender
+        -List<Comorbidity> comorbidities
+        -Joint jointStatus
+        +calculateBMI(): Float
+    }
+
+    class ClinicalData {
+        +Double age
+        +Int KellgrenLawrenceStage
+        +Int BMI
+        +Boolean diabetesPresent
+        +Boolean osteoporosisPresent
+        +Integer surgeryDurationHours
+    }
+
+    class Comorbidity {
+        +String type
+        +Integer severity
+        +Boolean isContraindication
+    }
+
+    class JointPathology {
+        +String diagnosis
+        +Int kLStage
+        +Float baselineROM
+        +Int painScoreVAS
+    }
+
+    class SurgeryLog {
+        +Date operationDate
+        +ImplantType implant
+        +Double operationDuration
+        +Technique techniqueUsed
+    }
+}
+
+package "Ядро СППВР и Машинное обучение" {
+    class MLModelManager {
+        -List<Feature> featureSet
+        -Double accuracyThreshold
+        +trainModel(Dataset trainingData): MLModel
+        +validateModel(): MetricsReport
+        +predictOutcome(ClinicalData data): PredictionResult
+        +retrainModel(NewData): Boolean
+    }
+
+    class MLModel {
+        +String modelVersion
+        +float accuracy
+        +float sensitivity
+        +float specificity
+        +float AUCROC
+    }
+
+    class PredictionResult {
+        +Float successProbability
+        -Boolean isCriticalRisk
+        +getActionableRecommendation(): List<String>
+        +toString(): Text
+    }
+
+    interface BinaryClassifier {
+        +predict(data: ClinicalData): Float
+    }
+}
+
+
+
+Patient "1..*" --o "1" ClinicalData
+Patient <|--JointPathology
+Patient<|--Comorbidity
+Patient<|--SurgeryLog
+ClinicalData --> MLModelManager : dataInput
+
+MLModelManager --> MLModel
+MLModel -right-> BinaryClassifier
+BinaryClassifier -right-> PredictionResult : output
+
+
+@enduml
