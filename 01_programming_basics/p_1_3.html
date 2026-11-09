@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>p_1_3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="p_1_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="p_1_3_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="p_1_3_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="p_1_3_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="p_1_3_files/libs/quarto-html/popper.min.js"></script>
+<script src="p_1_3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="p_1_3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="p_1_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="p_1_3_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="p_1_3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="p_1_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="p_1_3_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="спецификация-требований-к-программе" class="level1">
+<h1>1. Спецификация требований к программе</h1>
+<p><strong>Название:</strong> Система поддержки принятия врачебных решений (СППВР) при выполнениий первичного эндопротезирования коленного сустава.</p>
+<p>Программное решение (ПР), позволяющее вычислять на основе оптимальной модели сашинного обучения эффективность выполнения всего цикла лечения пациентов со стадией III-IV по Келлгрена — Лоуренса (Kellgren-Lawrence), которым назначено тотальное эндопротезирование коленного сустава в системе протокола ускоренного восстановления после операции (ERAS - Enhanced Recovery After Surgery).</p>
+<p>Цель ПР - на основании рекомендательной СППВР улучшить результаты лечения поциентов, получающих первичное эндопротезирование коленного сустава .</p>
+<section id="концепция-программного-решения" class="level2">
+<h2 class="anchored" data-anchor-id="концепция-программного-решения">Концепция программного решения:</h2>
+<p>ПР предназначено для врача травматолога-ортопеда, врача реабилитолога, врача терапевта, врача медицинского информатика. Система должна решать конкретную задачу бинарной классификации по конкретной первичной точки, а именно получение полного объема движений в коленном без болевого синдрома к 3 месяцам после опрации. Система решает актуальную научно практическую задачу сниженитя 15% доли недостижения первичной точки по данным литературы.</p>
+</section>
+<section id="пользователи" class="level2">
+<h2 class="anchored" data-anchor-id="пользователи">Пользователи:</h2>
+<ul>
+<li>врач
+<ul>
+<li>травматолог-ортопед</li>
+<li>реабилитолог</li>
+<li>терапевт</li>
+</ul></li>
+<li>медицинский информатик</li>
+<li>систеный администратор</li>
+<li>руководитель команды (НИР/НИОКР)</li>
+</ul>
+</section>
+<section id="определение-пользователей" class="level2">
+<h2 class="anchored" data-anchor-id="определение-пользователей">Определение пользователей:</h2>
+<ul>
+<li><strong>врача травматолог-ортопед</strong> - врач принимающий окончательное решение в подборее тактики до опреации, выбора интраоперационых решений и ведение раннего послеоперационног периода на время госпитализации.</li>
+<li><strong>врач реабилитолог</strong> - врач принимающий вспомогательные решения на догопитальном и внегоспистальном послеоперационнгом периоде.</li>
+<li><strong>врач терапевт</strong> - врач принимающий вспомогательные решения о допуске на операцию, оценивающий сопуствующие риски и дополняющий рекомендации врача травматолога и .</li>
+<li><strong>врач медицинский информатик</strong> - врач выполняющий создание протокола НИР/НИОКР, выполняющий непосредственную работу по соданию схемы данных, организовывающий сбору данных, проводящий ETL (Extract, Transform, Load — извлечение, преобразование, загрузка), проводящий раведовательный анализ данных, выполняющий подбор модели, ее поддержку, корректировку и вывод.</li>
+<li><strong>систеный администратор</strong> - специалист, овечающий за координацию работы информационный сиситемы, поддержку работоспособности и опредление уровней доступа.</li>
+<li><strong>руководитель команды (НИР/НИОКР)</strong> - руководитель проекта, выполняющий основную отчетность перед вышестоящей инстанцией (например отдел сопровождения научных исселедований)</li>
+</ul>
+</section>
+<section id="пользовательские-истории" class="level2">
+<h2 class="anchored" data-anchor-id="пользовательские-истории">Пользовательские истории</h2>
+<section id="блок-1-подготовка-данных-и-обучение-модели" class="level3">
+<h3 class="anchored" data-anchor-id="блок-1-подготовка-данных-и-обучение-модели">Блок 1: Подготовка данных и обучение модели</h3>
+<p><em>История 1: Импортирование исторических данных пациента</em></p>
+<ul>
+<li><strong>Как:</strong> Врач-информатик</li>
+<li><strong>Хочет:</strong> загружать массив клинических данных пациентов, оперированных в прошлом (возраст, вес, стадия артроза, сопутствующие заболевания, доп. операции),</li>
+<li><strong>Чтобы:</strong> подготовить «обучающую выборку» для машинного обучения модели.</li>
+<li>*<strong>Реализация:</strong>
+<ol type="1">
+<li>Система корректно считывает CSV/Excel файлы с историей клиники.</li>
+<li>Пропуск критически важных полей (например, наличие диабета или инсультов) блокирует загрузку.</li>
+<li>Применение решений ускорения очистки данных.</li>
+</ol></li>
+</ul>
+<p><em>История 2: Проверка качества данных и разметка классов</em></p>
+<ul>
+<li><strong>Как:</strong> Врач-информатик</li>
+<li><strong>Хочет:</strong> очищать базу от «шума» и проверять разметку результата,</li>
+<li><strong>Чтобы:</strong> модель машинного обучения обучалась на достоверных данных.</li>
+<li>*<strong>Реализация:</strong>
+<ol type="1">
+<li>Система визуализирует выбросы (аномалии) в данных.</li>
+<li>проверяет принятые классификаторы</li>
+</ol></li>
+</ul>
+<p><em>История 3: Мониторинг точности модели и ее адаптация</em></p>
+<ul>
+<li><strong>Как:</strong> Врач-медицинский информатик</li>
+<li><strong>Хочет:</strong> видеть текущие показатели точности (Площадь под кривой, Точность,Специфичность, Чувствительность, Отбалансированная точность) модели на валидационной выборке, а так проводить кросс валидацию</li>
+<li><strong>Чтобы:</strong> убедиться, что снижение доли недостижения цели происходит.</li>
+<li>*<strong>Реализация:</strong>
+<ol type="1">
+<li>На дашборде отображается метрика точности прогноза.</li>
+<li>При снижении точности ниже порога система предупреждает о необходимости пересборки модели.</li>
+<li>При снижении точности ниже порога, косле кросс валидации система предупреждает о необходимости пересборки модели.</li>
+</ol></li>
+</ul>
+</section>
+<section id="блок-2-предоперационный-этап" class="level3">
+<h3 class="anchored" data-anchor-id="блок-2-предоперационный-этап">Блок 2: Предоперационный этап</h3>
+<p><em>История 4: Прогнозирование результатов на основе СППВР</em></p>
+<ul>
+<li><strong>Как:</strong> Врач-травматолог-ортопед</li>
+<li><strong>Хочет:</strong> ввести данные пациента в интерфейс перед операцией,</li>
+<li><strong>Чтобы:</strong> получить прогноз вероятности достижения целевого исхода (полный объем движений без боли к 3 мес).</li>
+<li><strong>Реализация:</strong>
+<ul>
+<li>Система принимает ввод данных.</li>
+<li>Возвращает балл риска в виде вероятностной шкалы для .</li>
+<li>Отображает рекомендацию: «Операция целесообразна» / «Требуется коррекция протокола».</li>
+</ul></li>
+</ul>
+<p><em>История 5: Корректировка протокола ERAS до операции</em></p>
+<ul>
+<li><strong>Как:</strong> Врач-травматолог-ортопед</li>
+<li><strong>Хочет:</strong> получить список рекомендаций по подготовке пациента (например, снижение веса, ЛФК до госпитализации), если система прогнозирует низкую вероятность успеха,</li>
+<li><strong>Чтобы:</strong> повысить шансы на достижение первичной точки до 3 месяцев.</li>
+<li><strong>Реализация:</strong>
+<ul>
+<li>При показателе вероятности &gt; 15% негативного исхода система предлагает чек-лист действий (например: «Рекомендуется консультация кардиолога», «Введение антикоагулянтов»).</li>
+<li>Рекомендации обоснованы данными модели (связь с факторами риска).</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="блок-3-внутренний-операционный-период" class="level2">
+<h2 class="anchored" data-anchor-id="блок-3-внутренний-операционный-период">Блок 3: Внутренний операционный период</h2>
+<p><em>История 6: Интраоперационная оценка рисков осложнений</em></p>
+<ul>
+<li><strong>Как:</strong> Врач-травматолог-ортопед</li>
+<li><strong>Хочет:</strong> видеть влияние интраоперационных факторов (размер дефекта, тип протеза, размер протеза, производитель протеза, длительность операции), введенных в СППВР в реальном времени,</li>
+<li><strong>Чтобы:</strong> оперативно оценить риск отказа.</li>
+<li><strong>Реализация:</strong>
+<ul>
+<li>Интерфейс позволяет добавить/изменить параметры операции.</li>
+<li>Пересчитывается итоговый прогноз эффективности лечения.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="блок-4-послеперационный-период" class="level2">
+<h2 class="anchored" data-anchor-id="блок-4-послеперационный-период">Блок 4: Послеперационный период</h2>
+<p><em>История 7: План реабилитации на основе прогноза СППВР</em></p>
+<ul>
+<li><strong>Как:</strong> Врач-реабилитолог</li>
+<li><strong>Хочет:</strong> получить персонализированный план реабилитации с учетом предоперационного прогноза системы,</li>
+<li><strong>Чтобы:</strong> признать пациентов неблагопритного исхода с вероятностью &gt; 15% и изменить программу тренировок или изменить медикаментозную поддержку.</li>
+<li><strong>Реализация:</strong>
+<ul>
+<li>План генерируется автоматически на основе данных о пациенте.</li>
+<li>Если прогноз был низким, план включает стандартный протокол.</li>
+</ul></li>
+</ul>
+<p><em>История 8: Контроль прогресса через «точку контроля» (3 месяца)</em></p>
+<ul>
+<li><strong>Как:</strong> Врач-реабилитолог</li>
+<li><strong>Хочет:</strong> отмечать достижение пациентами целевых показателей (диапазон движений, отсутствие боли VAS) к 3 месяцам,</li>
+<li><strong>Чтобы:</strong> система фиксировала успех или неудачный исход и вносила данные для обучения модели.</li>
+<li><strong>Реализация:</strong>
+<ul>
+<li>Интерфейс содержит галочку «Цель достигнута / Не достигнута».</li>
+<li>Данные сохраняются в базу данных.</li>
+</ul></li>
+</ul>
+</section>
+<section id="блок-5-оценка-рисков-и-допуск-к-операции" class="level2">
+<h2 class="anchored" data-anchor-id="блок-5-оценка-рисков-и-допуск-к-операции">Блок 5: Оценка рисков и допуск к операции</h2>
+<p><em>История 9: Экспресс-оценка противопоказаний</em></p>
+<ul>
+<li><strong>Как:</strong> Врач-терапевт</li>
+<li><strong>Хочет:</strong> оценивать влияние хронических болезней на прогноз СППВР до направления пациента к травматологу,</li>
+<li><strong>Чтобы:</strong> отсеять пациентов с высоким общим риском и снизить процент осложнений.</li>
+<li><strong>Реализация:</strong>
+<ul>
+<li>Система показывает блок «Стратификация риска» с цветовым кодированием (зеленый/желтый/красный).</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="блок-6-администрирование-и-отчетность" class="level2">
+<h2 class="anchored" data-anchor-id="блок-6-администрирование-и-отчетность">Блок 6: Администрирование и отчетность</h2>
+<p><strong>Пользователь:</strong> Врач медицинского информатика (в части поддержки) + Руководитель отдела НИОКР</p>
+<p><em>История 10: Генерация отчетности для протокола НИР/НИОКР</em></p>
+<ul>
+<li><strong>Как:</strong> Врач-мед. информатик / Руководитель исседования</li>
+<li><strong>Хочет:</strong> выводить сводку по эффективности внедрения СППВР (сравнение статистики «До» и «После» применения системы),</li>
+<li><strong>Чтобы:</strong> обосновать финансирование и научную ценность проекта (снижение доли недостижения первичной точки).</li>
+<li><strong>Hализация:</strong></li>
+</ul>
+<ol type="1">
+<li>Готовый отчет (PDF/Excel) с таблицей динамики целевых показателей. 2) Возможность фильтрации по отделениям, типам протезов, возраста пациентов.</li>
+</ol>
+<p><em>История 11: Настройка модели для конкретных типов пациентов</em></p>
+<ul>
+<li><strong>Кто:</strong> Врач-мед. информатик</li>
+<li><strong>Хочет:</strong> настраивать «веса» факторов в модели,</li>
+<li><strong>Чтобы:</strong> адаптировать алгоритм под специфику конкретной клиники или регионную базу данных.</li>
+<li><strong>Какая рализация:</strong> В админ-панели доступна настройка чувствительности к факторам, а именно вывод метрик качества модели</li>
+</ul>
+<p><em>История 12: Настройка модели для конкретных типов пациентов</em></p>
+<ul>
+<li><strong>Кто:</strong> системный администратор</li>
+<li><strong>Хочет:</strong> иметь возможность определенять права доступа, видеть системные ошибки работы архитектуры, котрые нельзя выводить в общее использование,</li>
+<li><strong>Чтобы:</strong> поддерживать работоспособность и безопасность системы.</li>
+<li><strong>Какая рализация:</strong> создание специальноего модуля приложения обеспечивающего удобное администрирование для работы с базами данных и содержимым системы.</li>
+</ul>
+</section>
+</section>
+<section id="функциональные-требования-фт" class="level1">
+<h1>ФУНКЦИОНАЛЬНЫЕ ТРЕБОВАНИЯ (ФТ)</h1>
+<p><strong>Название:</strong> Система поддержки принятия врачебных решений (СППВР) при первичном эндопротезировании коленного сустава (ТЭП КС).</p>
+<p><strong>Версия документа:</strong> 1.0</p>
+<p><strong>Цель:</strong> Обеспечение бинарной классификации результата лечения (успех/неудача к 3 месяцам) и предоставление персонализированных рекомендаций для улучшения показателей ERAS.</p>
+<table class="caption-top table" data-border="1">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Группа требований</th>
+<th data-quarto-table-cell-role="th">Детализация требований</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Требования к навигации и интерфейсу пользователя</strong></td>
+<td><br>
+1.1 Создать главное меню, содержащее доступ к основным модулям (Предоперационная оценка, Обучение модели, Интраоперационный журнал, Постоперационное ведение, Отчеты).<br>
+<br>
+1.2 Создавать варианты пользовательского представления (Views) в зависимости от роли пользователя (Травматолог видит клинический модуль, Информатик — модель и базу данных).<br>
+<br>
+1.3 Обеспечить переходы по навигационным элементам без перезагрузки страницы (Single Page Application подход) для удобства использования в динамике операционного блока.</td>
+</tr>
+<tr class="even">
+<td><strong>2. Требования к безопасности и доступу</strong></td>
+<td>2.1 Создать форму входа по логину и паролю (включая восстановление пароля).<br>
+<br>
+2.2 Проводить валидацию ролей при входе: идентифицировать пользователя как врача-травматолога, реабилитолога, терапевта или информатика.<br>
+<br>
+2.3 Ограничивать доступ к чувствительным данным (например, сырые данные ML модели) только для роли «Врач-мед. информатик».<br>
+<br>
+2.4 Создать редактор настройки первой точки исследований (определение целевого исхода: полный объем движений + отсутствие боли VAS).<br>
+<br>
+2.5 Создать редактор отчетов для формирования PDF/Excel документов по итогам работы системы.<br>
+<br>
+2.6 Создать редактор визуализации данных (выбор типа графиков, гистограмм точности и чувствительности).</td>
+</tr>
+<tr class="odd">
+<td><strong>3. Требования к управлению данными и ML-моделированием</strong></td>
+<td>3.1 Создать соединение с СУБД (PostgreSQL/MySQL) с соответствующим уровнем доступа (Write для Инорматика, Read для Врачей).<br>
+<br>
+3.2 Создать возможность соединения с API существующей системы управления больницей (HIS/PACS) для импорта истории болезни пациента (ЭМК).<br>
+<br>
+3.3 Реализовать модуль ETL: извлечение исторических данных, преобразование их в формат датасета, загрузка на сервер модели.</td>
+</tr>
+<tr class="even">
+<td><strong>4. Управление обучением и валидацией модели (Блок 1)</strong></td>
+<td>4.1 Загрузка обучающей выборки: Пользователь (Информатик) должен загружать CSV/Excel файлы с историей операций (возраст, вес, стадия КЛ, коморбидность).<br>
+<br>
+4.2 Валидация критических полей: Система должна блокировать загрузку или помечать строки как «Недопустимые», если отсутствуют обязательные поля (например, наличие диабета, инсультов, стадия КЛ), критичные для бинарной классификации.<br>
+<br>
+4.3 Очистка данных: Система должна визуализировать выбросы (аномалии) и пропущенные значения, предоставляя инструменты для их очистки (сглаживание или удаление).<br>
+<br>
+4.4 Маркировка классов: Система должна позволять подтвердить разметку целевой переменной («100% результат» / «&lt;100% результат») перед обучением.<br>
+<br>
+4.5 Мониторинг качества модели: Интерфейс должен отображать метрики на валидационной выборке (AUC-ROC, Accuracy, Precision, Recall, F1-Score).<br>
+<br>
+4.6 Алгоритм подсказок о выборе критерия: Система должна подсказывать информатику о выборе признаков (Feature Importance), если они слабо влияют на качество модели.<br>
+<br>
+4.7 Валидация мощности выборки: Подсказывать об достаточности данных для достижения статистической значимости (Power Analysis) перед запуском обучения.</td>
+</tr>
+<tr class="odd">
+<td><strong>5. Клинический функционал: Предоперационный этап</strong></td>
+<td>5.1 Создать блок «Сопутствующие риски» для врача-терапевта/травматолога с цветовым кодированием (Зеленый — низкий риск, Желтый — умеренный, Красный — высокий).<br>
+5.2 Реализовать логику блокировки: При красном цвете и прогнозе отказа от лечения &gt; 80% система должна выдавать предупреждение и предлагать перепроверить диагноз или отсрочить операцию.<br>
+5.3 Отображать влияние хронических заболеваний на прогноз СППВР до направления пациента к травматологу.<br>
+<br>
+5.4Создать форму ввода клинических данных пациента перед операцией (демография, стадия КЛ, исходные риски).<br>
+5.5 Возвращать балл риска в виде вероятностной шкалы (0–100% вероятность достижения цели: Full ROM + No Pain к 3 мес).<br>
+5.6 Отображать рекомендацию СППВР: «Операция целесообразна» / «Требуется коррекция протокола».<br>
+<br>
+5.7 Генерировать список рекомендаций по подготовке, если вероятность успеха &lt; Порога (например, &lt; 15%).<br>
+5.8 Рекомендации должны быть обоснованы факторами риска (связь с моделью): «Рекомендуется снижение веса», «Консультация кардиолога», «Введение антикоагулянтов», «Дополнительный курс ЛФК».</td>
+</tr>
+<tr class="even">
+<td><strong>6. Клинический функционал: Внутренний операционный период (Intra-op)</strong></td>
+<td>6.1 Создать интерфейс для ввода интраоперационных факторов в СППВР (длительность операции, тип протеза, размер дефекта кости, использование аутрилинга).<br>
+6.2 Пересчитывать итоговый прогноз эффективности лечения (Risk Score) динамически сразу после ввода каждого нового фактора.<br>
+6.3 Визуализировать риск отказа от реабилитации или раннего сращения в виде прогресс-бара или цветовой метки, чтобы хирург мог оперативно скорректировать технику операции.</td>
+</tr>
+<tr class="odd">
+<td><strong>7. Клинический функционал: Постоперационный период и Реабилитация</strong></td>
+<td>7.1 Создать алгоритм генерации персонализированного плана реабилитации на основе прогноза СППВР (до/после операции).<br>
+7.2 При «низком прогнозе» из начальной модели план должен включать обязательные процедуры усиления интенсивности (Частота ЛФК, контроль ХГБ).<br>
+7.3 При «высоком прогнозе» план может быть стандартизирован согласно протоколу ERAS (базовый).<br>
+7.4 Создать форму «Точки контроля (Checkpoint)» для врача-реабилитолога к 3 месяцам после операции.<br>
+7.5 Интерфейс должен содержать галочку «Цель достигнута / Не достигнута».<br>
+7.6 Сохранение данных об исходе в базу данных для дообучения модели (замыкание цикла обучения).<br>
+7.7 Система должна автоматически обновлять метрики обучения на основе введенных результатов (Retraining Trigger).</td>
+</tr>
+<tr class="even">
+<td><strong>8. Требования к администрированию и отчетам</strong></td>
+<td>8.1 Настроить «веса» факторов в модели в админ-панели для адаптации алгоритма под специфику конкретной клиники или региона.<br>
+8.2 Проводить кросс-валидацию и отображать метрики качества (AUC) при пересборке модели.<br>
+8.3 Вывод сводки по эффективности внедрения СППВР (сравнение статистики «До» и «После» применения системы).<br>
+8.4 Фильтрация отчетов по отделениям, типам протезов, возрасту пациентов, году проведения лечения.<br>
+8.5 Экспорт данных в форматы PDF или Excel с таблицей динамики целевых показателей.</td>
+</tr>
+<tr class="odd">
+<td><strong>9. Нефункциональные требования к функциям</strong></td>
+<td>9.1 Доступность: Система должна обеспечивать доступность для врачей-клиницистов на планшете/мобильном устройстве в операционной или кабинете реабилитации.<br>
+<br>
+9.2 Производительность: Время расчета прогноза СППВР должно составлять не более 10 секунд после загрузки данных пациента.<br>
+<br>
+9.3 Аудит: Система должна вести журнал аудита (Audit Log): кто, когда и что изменил в конфигурации модели или записал результат исхода лечения.</td>
+</tr>
+</tbody>
+</table>
+<section id="проектирование-алгоритма-решения-задачи-согласно-процедурной-парадигме" class="level2">
+<h2 class="anchored" data-anchor-id="проектирование-алгоритма-решения-задачи-согласно-процедурной-парадигме">2. Проектирование алгоритма решения задачи согласно процедурной парадигме</h2>
+<p><strong>Модель прецедентов(фрагмент)</strong></p>
+<p><img src="img/uml_1.png" class="img-fluid"></p>
+<p><strong>Диаграмма деятельности(фрагмент)</strong></p>
+<p><img src="img/uml_3.png" class="img-fluid"></p>
+<p><strong>Диаграмма последовательн(фрагмент)</strong></p>
+<p><img src="img/uml_4.png" class="img-fluid"></p>
+</section>
+<section id="проектирование-объектной-модели" class="level2">
+<h2 class="anchored" data-anchor-id="проектирование-объектной-модели">4. Проектирование объектной модели</h2>
+<p><strong>Цель</strong> - выяснить принципы разработки диаграмм взаимодействия (в частности последовательностей), соответствующие потокам событий вариантов использования.</p>
+<p><strong>Диагнрамма классов</strong></p>
+<p><img src="img/uml_2.png" class="img-fluid"></p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
