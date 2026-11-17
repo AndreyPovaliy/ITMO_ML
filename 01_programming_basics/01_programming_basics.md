@@ -4,7 +4,7 @@
 
   - [6](https://github.com/AndreyPovaliy/ITMO_ML/blob/main/01_programming_basics/6.ipynb)
 
-  - [6](https://github.com/AndreyPovaliy/ITMO_ML/blob/main/01_programming_basics/6d.ipynb)
+  - [6d](https://github.com/AndreyPovaliy/ITMO_ML/blob/main/01_programming_basics/6d.ipynb)
 
   - [P2](https://github.com/AndreyPovaliy/ITMO_ML/blob/main/01_programming_basics/P2.ipynb)
 
